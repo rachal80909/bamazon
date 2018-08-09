@@ -1,0 +1,24 @@
+{
+    "name": "bamazon",
+    "version": "1.0.0",
+    "description": "An Amazon-like storefront which operates with a MySQL backend",
+    "main": "bamazon.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rachal80909/bamazon.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rachal80909/bamazon/issues"
+    },
+    "homepage": "https://github.com/rachal80909/bamazon#readme",
+    "dependencies": {
+        "console.table": "^0.10.0",
+        "mysql": "^2.16.0"
+    }
+}
