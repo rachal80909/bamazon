@@ -27,4 +27,5 @@ connection.connect(function(err) {
 
     })
 
+    // create a function that asks customer what item to buy
 });
