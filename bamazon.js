@@ -1,6 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var table = table('console.table');
+var table = require("console.table");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -152,3 +152,5 @@ function bidAuction() {
             });
     });
 }
+
+start();
