@@ -154,3 +154,6 @@ function bidAuction() {
 }
 
 start();
+
+
+//SELECT Product_name, Stock_Quantity FROM products WHERE Product_name = '" + someVar + "' Stock_Quantity > 0
