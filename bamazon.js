@@ -96,7 +96,7 @@ function postAuction() {
 
 function bidAuction() {
     // query the database for all items being auctioned
-    connection.query("SELECT * FROM auctions", function(err, results) {
+    connection.query("SELECT * FROM products", function(err, results) {
         if (err) throw err;
         // once you have the items, prompt the user for which they'd like to bid on
         inquirer
@@ -106,49 +106,51 @@ function bidAuction() {
                     choices: function() {
                         var choiceArray = [];
                         for (var i = 0; i < results.length; i++) {
-                            choiceArray.push(results[i].item_name);
+                            choiceArray.push(results[i].Product_name);
                         }
                         return choiceArray;
                     },
-                    message: "What auction would you like to place a bid in?"
+                    message: "What product would you like to buy?"
                 },
                 {
-                    name: "bid",
+                    name: "buy",
                     type: "input",
-                    message: "How much would you like to bid?"
+                    message: "How many would you like to buy?"
                 }
             ])
             .then(function(answer) {
                 // get the information of the chosen item
                 var chosenItem;
                 for (var i = 0; i < results.length; i++) {
-                    if (results[i].item_name === answer.choice) {
+                    if (results[i].Product_name === answer.choice) {
                         chosenItem = results[i];
                     }
                 }
+                checkQuantity(chosenItem, answer.buy);
+
 
                 // determine if bid was high enough
-                if (chosenItem.highest_bid < parseInt(answer.bid)) {
-                    // bid was high enough, so update db, let the user know, and start over
-                    connection.query(
-                        "UPDATE auctions SET ? WHERE ?", [{
-                                highest_bid: answer.bid
-                            },
-                            {
-                                id: chosenItem.id
-                            }
-                        ],
-                        function(error) {
-                            if (error) throw err;
-                            console.log("Bid placed successfully!");
-                            start();
-                        }
-                    );
-                } else {
-                    // bid wasn't high enough, so apologize and start over
-                    console.log("Your bid was too low. Try again...");
-                    start();
-                }
+                // if (chosenItem.highest_bid < parseInt(answer.bid)) {
+                //     // bid was high enough, so update db, let the user know, and start over
+                //     connection.query(
+                //         "UPDATE auctions SET ? WHERE ?", [{
+                //                 highest_bid: answer.bid
+                //             },
+                //             {
+                //                 id: chosenItem.id
+                //             }
+                //         ],
+                //         function(error) {
+                //             if (error) throw err;
+                //             console.log("Bid placed successfully!");
+                //             start();
+                //         }
+                //     );
+                // } else {
+                // bid wasn't high enough, so apologize and start over
+                // console.log("Your bid was too low. Try again...");
+                start();
+                // }
             });
     });
 }
@@ -158,10 +160,13 @@ start();
 // ELECT Product_name, Stock_Quantity FROM products WHERE Product_name = '" + someVar + "'
 // Stock_Quantity > 0
 
-function checkQuantity() {
-    // query the database for all items being auctioned
-    connection.query("SELECT Product_name FROM products WHERE Product_name", function(err, results) {
-        if (err) throw err;
+function checkQuantity(Product_name, Quantity) {
+    // query the database for all items being sold
+
+    // SELECT Product_name, Stock_Quantity FROM bamazon.products WHERE Product_name="soap"
+
+    connection.query("SELECT Stock_Quantity FROM products WHERE Product_name = '" + Product_name + "'", function(err, results) {
+        // if (err) throw err;
         // once you have the items, prompt the user for which they'd like to buy
         inquirer
             .prompt([{
@@ -217,15 +222,15 @@ function checkQuantity() {
     });
 }
 
-updateProduct();
-stockQuant = res[i].Stock_Quantity - StockQuant;
-console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + stockQuant);
+// updateProduct();
+// stockQuant = res[i].Stock_Quantity - StockQuant;
+// console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + stockQuant);
 
 
 
 
-console.log("-----------------------------------");
+// console.log("-----------------------------------");
 // console.log(res.affectedRows + " item purchased!\n" + "Your total is " + total + "\n");
 
-if (err) throw err;
+// if (err) throw err;
 // Log all results of the SELECT statement
