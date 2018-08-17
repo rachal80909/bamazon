@@ -60,6 +60,20 @@ function makePurchase(answer) {
 
     })
 }
+
+function that makes query to make sure
+if row item quantity is greater than or equal to amount they want to buy
+
+console.log
+if insuficient quantity
+only call make purchase
+if enough in stock(quantity from the res)
+
+quatity they buy from current quantity
+
+
+
+
 // // function to handle posting new items up for auction
 // function postAuction() {
 //     // prompt for info about the item being put up for auction
